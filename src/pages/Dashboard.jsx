@@ -26,6 +26,7 @@ const skillRadarData = [
 ];
 
 const CV_ANALYZER_FRONTEND = "https://dealer-maximize-paragraph-municipality.trycloudflare.com/";
+const CONFIG_API_URL = "https://dugong12-test.hf.space";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function Dashboard() {
   const [cvError, setCvError] = useState("");
   const [iframeAnalyzerLoaded, setIframeAnalyzerLoaded] = useState(false);
   const [flaskApiUrl, setFlaskApiUrl] = useState(
-    () => localStorage.getItem("cvApiUrl") || "https://soft-thrush-everywhere.trycloudflare.com"
+    () => localStorage.getItem("cvApiUrl") || CONFIG_API_URL
   );
   const [showApiUrlInput, setShowApiUrlInput] = useState(false);
   const fileInputRef = useRef(null);

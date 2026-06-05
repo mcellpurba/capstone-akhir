@@ -114,8 +114,37 @@ function Profile() {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        saveProfile({ ...profile, photo: reader.result });
+      reader.onloadend = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 200; // Ukuran maksimal foto
+          const MAX_HEIGHT = 200;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Kompres ke JPEG dengan kualitas 70% agar base64 sangat pendek
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+          saveProfile({ ...profile, photo: compressedBase64 });
+        };
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
