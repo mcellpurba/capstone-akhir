@@ -1,12 +1,9 @@
 # 🚀 MyJobTrend — Sistem Rekomendasi Keterampilan Prediktif
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
 
 **MyJobTrend** adalah aplikasi web *full-stack* yang dirancang untuk menjembatani kesenjangan antara pencari kerja dan pasar kerja. Aplikasi ini menyediakan pencarian kerja cerdas, analisis CV, asisten chatbot AI, dan rekomendasi keterampilan berbasis *machine learning* untuk membantu pengguna tetap kompetitif dalam karier mereka.
