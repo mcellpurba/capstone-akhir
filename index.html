@@ -1,14 +1,599 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/src/assets/logoapk.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MyJobTrend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Analyzer — Gap Analysis</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      color: #2d3748;
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    header p {
+      margin-top: 6px;
+      color: #718096;
+      font-size: 0.95rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #2d3748;
+    }
+
+    /* ── Upload area ── */
+    .upload-zone {
+      border: 2px dashed #cbd5e0;
+      border-radius: 10px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+
+    .upload-zone input[type="file"] {
+      display: none;
+    }
+
+    .upload-zone .icon {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+
+    .upload-zone .label {
+      font-size: 0.95rem;
+      color: #4a5568;
+    }
+
+    .upload-zone .sub {
+      font-size: 0.8rem;
+      color: #a0aec0;
+      margin-top: 4px;
+    }
+
+    .file-selected {
+      font-size: 0.88rem;
+      color: #48bb78;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    /* ── Button ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .1s;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5a67d8;
+    }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, .4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ── Error / info banners ── */
+    .banner {
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      display: none;
+      margin-bottom: 24px;
+    }
+
+    .banner.error {
+      background: #fff5f5;
+      border: 1px solid #fc8181;
+      color: #c53030;
+    }
+
+    .banner.success {
+      background: #f0fff4;
+      border: 1px solid #68d391;
+      color: #276749;
+    }
+
+    /* ── Results ── */
+    #results {
+      display: none;
+    }
+
+    /* Match rate bar */
+    .match-rate-section {
+      margin-bottom: 24px;
+    }
+
+    .match-rate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .match-rate-header .label {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .match-rate-header .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #667eea;
+    }
+
+    .progress-track {
+      background: #e2e8f0;
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      transition: width .6s ease;
+    }
+
+    /* Meta info */
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .meta-chip {
+      background: #edf2ff;
+      border-radius: 8px;
+      padding: 10px 16px;
+      flex: 1;
+      min-width: 130px;
+      text-align: center;
+    }
+
+    .meta-chip .meta-label {
+      font-size: 0.75rem;
+      color: #667eea;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .meta-chip .meta-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a202c;
+      margin-top: 2px;
+    }
+
+    /* Skill columns */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-group h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skill-group .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge-green {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    .badge-red {
+      background: #fed7d7;
+      color: #822727;
+    }
+
+    .badge-blue {
+      background: #bee3f8;
+      color: #2a4365;
+    }
+
+    .empty-note {
+      font-size: 0.82rem;
+      color: #a0aec0;
+      font-style: italic;
+    }
+
+    /* Job info */
+    .job-info {
+      background: #fafafa;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      color: #4a5568;
+    }
+
+    .job-info strong {
+      color: #1a202c;
+    }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 20px 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a0aec0;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <h1>📄 CV Analyzer</h1>
+      <p>Upload CV kamu dan lihat gap skill untuk posisi yang dituju</p>
+    </header>
+
+    <!-- Upload card -->
+    <div class="card">
+      <h2>Upload CV (PDF)</h2>
+
+      <label class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".pdf" />
+        <div class="icon">📂</div>
+        <div class="label">Klik atau drag &amp; drop file PDF ke sini</div>
+        <div class="sub">Maksimal 10MB</div>
+      </label>
+      <div class="file-selected" id="fileName"></div>
+
+      <button class="btn btn-primary" id="analyzeBtn" disabled>
+        <span class="spinner" id="spinner"></span>
+        <span id="btnLabel">Analyze</span>
+      </button>
+    </div>
+
+    <!-- Error banner -->
+    <div class="banner error" id="errorBanner"></div>
+
+    <!-- Results -->
+    <div id="results">
+      <div class="card">
+        <h2>Hasil Gap Analysis</h2>
+
+        <!-- Job info -->
+        <div class="job-info" id="jobInfo"></div>
+
+        <!-- Match rate -->
+        <div class="match-rate-section">
+          <div class="match-rate-header">
+            <span class="label">Match Rate</span>
+            <span class="value" id="matchRateValue">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progressBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Meta chips -->
+        <div class="meta-row">
+          <div class="meta-chip">
+            <div class="meta-label">Skill di CV</div>
+            <div class="meta-value" id="cvSkillsCount">—</div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-label">Kebutuhan Market</div>
+            <div class="meta-value" id="marketSkillsCount">—</div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-label">Matched</div>
+            <div class="meta-value" id="matchedCount">—</div>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Skill groups -->
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>✅ Sudah Kamu Miliki</h3>
+            <div class="badges" id="matchedBadges"></div>
+          </div>
+          <div class="skill-group">
+            <h3>⚠️ Gap — Perlu Dipelajari</h3>
+            <div class="badges" id="gapBadges"></div>
+          </div>
+          <div class="skill-group">
+            <h3>🎁 Bonus Skill</h3>
+            <div class="badges" id="bonusBadges"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>CV Analyzer · IT Skill Recommender (BiLSTM + Attention)</footer>
+  </div>
+
+  <script>
+    // ╔══════════════════════════════════════════════════════════════════╗
+    // ║  KONFIGURASI — ganti URL ini dengan URL tunnel Cloudflare kamu  ║
+    // ║  Contoh: "https://abc-xyz.trycloudflare.com"                    ║
+    // ╚══════════════════════════════════════════════════════════════════╝
+    const CONFIG_API_URL = "https://dugong12-test.hf.space";
+
+    // ── DOM refs ──────────────────────────────────────────────────────────────
+    const uploadZone = document.getElementById("uploadZone");
+    const fileInput = document.getElementById("fileInput");
+    const fileName = document.getElementById("fileName");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const spinner = document.getElementById("spinner");
+    const btnLabel = document.getElementById("btnLabel");
+    const errorBanner = document.getElementById("errorBanner");
+    const results = document.getElementById("results");
+    const jobInfo = document.getElementById("jobInfo");
+    const matchRateValue = document.getElementById("matchRateValue");
+    const progressBar = document.getElementById("progressBar");
+    const cvSkillsCount = document.getElementById("cvSkillsCount");
+    const marketSkillsCount = document.getElementById("marketSkillsCount");
+    const matchedCount = document.getElementById("matchedCount");
+    const matchedBadges = document.getElementById("matchedBadges");
+    const gapBadges = document.getElementById("gapBadges");
+    const bonusBadges = document.getElementById("bonusBadges");
+
+    let selectedFile = null;
+
+    // ── Drag & drop ───────────────────────────────────────────────────────────
+    uploadZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      uploadZone.classList.add("drag-over");
+    });
+    uploadZone.addEventListener("dragleave", () => uploadZone.classList.remove("drag-over"));
+    uploadZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove("drag-over");
+      const file = e.dataTransfer.files[0];
+      if (file) setFile(file);
+    });
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files[0]) setFile(fileInput.files[0]);
+    });
+
+    function setFile(file) {
+      if (!file.name.toLowerCase().endsWith(".pdf")) {
+        showError("Hanya file PDF yang didukung.");
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        showError("Ukuran file melebihi batas 10MB.");
+        return;
+      }
+      selectedFile = file;
+      fileName.textContent = "📎 " + file.name + " (" + (file.size / 1024).toFixed(1) + " KB)";
+      analyzeBtn.disabled = false;
+      hideError();
+      results.style.display = "none";
+    }
+
+    // ── Analyze ───────────────────────────────────────────────────────────────
+    analyzeBtn.addEventListener("click", async () => {
+      if (!selectedFile) return;
+
+      setLoading(true);
+      hideError();
+      results.style.display = "none";
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      try {
+        const res = await fetch(CONFIG_API_URL.replace(/\/$/, "") + "/analyze", {
+          method: "POST",
+          body: formData,
+        });
+
+        let data;
+        try {
+          data = await res.json();
+        } catch {
+          throw new Error("Response dari server bukan JSON. Pastikan API sedang berjalan.");
+        }
+
+        if (!res.ok || data.status === "error") {
+          throw new Error(data.message || `HTTP ${res.status}`);
+        }
+
+        renderResults(data);
+
+      } catch (err) {
+        if (err.name === "TypeError" && err.message.includes("fetch")) {
+          showError(
+            "Tidak dapat terhubung ke API. " +
+            "Pastikan Flask server berjalan dan CONFIG_API_URL sudah benar. " +
+            "(URL saat ini: " + CONFIG_API_URL + ")"
+          );
+        } else {
+          showError(err.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // ── Render results ────────────────────────────────────────────────────────
+    function renderResults(d) {
+      // Job info
+      let infoHtml = `<strong>Job Target:</strong> ${esc(d.job_target)}`;
+      if (d.job_normalized && d.job_normalized !== d.job_target.toLowerCase()) {
+        infoHtml += ` &nbsp;→&nbsp; <em>${esc(d.job_normalized)}</em>`;
+      }
+      jobInfo.innerHTML = infoHtml;
+
+      // Match rate
+      const rate = d.match_rate ?? 0;
+      matchRateValue.textContent = rate.toFixed(1) + "%";
+      // Animate after paint
+      requestAnimationFrame(() => {
+        progressBar.style.width = Math.min(rate, 100) + "%";
+      });
+
+      // Counts
+      cvSkillsCount.textContent = d.cv_skills_count ?? "—";
+      marketSkillsCount.textContent = d.market_skills_count ?? "—";
+      matchedCount.textContent = (d.matched ?? []).length;
+
+      // Badges
+      renderBadges(matchedBadges, d.matched ?? [], "badge-green", "Tidak ada skill yang cocok.");
+      renderBadges(gapBadges, d.gap ?? [], "badge-red", "Tidak ada gap! CV kamu sudah lengkap.");
+      renderBadges(bonusBadges, d.bonus ?? [], "badge-blue", "Semua skill sudah relevan.");
+
+      results.style.display = "block";
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderBadges(container, skills, cls, emptyMsg) {
+      container.innerHTML = "";
+      if (!skills.length) {
+        container.innerHTML = `<span class="empty-note">${emptyMsg}</span>`;
+        return;
+      }
+      skills.forEach((sk) => {
+        const span = document.createElement("span");
+        span.className = "badge " + cls;
+        span.textContent = sk;
+        container.appendChild(span);
+      });
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function setLoading(on) {
+      analyzeBtn.disabled = on;
+      spinner.style.display = on ? "block" : "none";
+      btnLabel.textContent = on ? "Menganalisis..." : "Analyze";
+    }
+
+    function showError(msg) {
+      errorBanner.textContent = "❌ " + msg;
+      errorBanner.style.display = "block";
+    }
+
+    function hideError() {
+      errorBanner.style.display = "none";
+    }
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+
 </html>

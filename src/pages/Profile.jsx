@@ -46,9 +46,10 @@ function Profile() {
       }
     };
 
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/profiles/${currentUser.username}`);
+        const response = await fetch(`${API_URL}/profiles/${currentUser.username}`);
         if (response.ok) {
           const data = await response.json();
           setProfile(prev => ({ ...prev, ...data }));
@@ -82,8 +83,9 @@ function Profile() {
   const handleSaveToApi = async () => {
     setIsLoading(true);
     setSaveMessage('');
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
     try {
-      const response = await fetch(`http://localhost:5000/api/profiles/${currentUser.username}`, {
+      const response = await fetch(`${API_URL}/profiles/${currentUser.username}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
