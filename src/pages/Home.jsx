@@ -1,5 +1,5 @@
 import React from "react";
-import gambar_home from "../assets/gambarkerja.jpg";
+import gambar_home from "../assets/polishingfoto.png";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
