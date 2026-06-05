@@ -77,9 +77,14 @@ function LoginInput() {
         {loading ? "Memuat..." : "Masuk"}
       </button>
 
-      <p className="form-links">
-        Belum punya akun? <Link to="/register">Daftar Sekarang</Link>
-      </p>
+      <div className="form-links" style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "15px" }}>
+        <div style={{ textAlign: "right" }}>
+          <Link to="/forgot-password" style={{ fontSize: "0.9rem" }}>Lupa Password?</Link>
+        </div>
+        <p style={{ margin: 0 }}>
+          Belum punya akun? <Link to="/register">Daftar Sekarang</Link>
+        </p>
+      </div>
     </form>
   );
 }

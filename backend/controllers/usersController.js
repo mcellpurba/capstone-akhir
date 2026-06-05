@@ -59,3 +59,28 @@ export const getMe = async (req, res) => {
     res.status(401).json({ message: 'Token tidak valid' });
   }
 };
+
+// @desc    Forgot Password Request
+// @route   POST /api/users/forgot-password
+// @access  Public
+export const forgotPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+  
+  if (!email || !newPassword) return res.status(400).json({ message: 'Mohon isi email dan password baru' });
+  if (newPassword.length < 6) return res.status(400).json({ message: 'Password baru minimal 6 karakter' });
+  
+  try {
+    const checkUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (checkUser.rows.length === 0) {
+      return res.status(404).json({ message: 'Email tidak terdaftar' });
+    }
+
+    // Update password langsung ke database
+    await pool.query('UPDATE users SET password = $1 WHERE email = $2', [newPassword, email]);
+
+    res.status(200).json({ message: 'Password berhasil diubah. Silakan login kembali.' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

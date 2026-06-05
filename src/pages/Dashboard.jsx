@@ -25,16 +25,6 @@ const skillRadarData = [
   { subject: "SQL", user: 75, industry: 80, fullMark: 100 },
 ];
 
-const progressData = [
-  { day: "Sen", jam: 2 },
-  { day: "Sel", jam: 4 },
-  { day: "Rab", jam: 3 },
-  { day: "Kam", jam: 6 },
-  { day: "Jum", jam: 5 },
-  { day: "Sab", jam: 8 },
-  { day: "Min", jam: 2 },
-];
-
 const CV_ANALYZER_FRONTEND = "https://dealer-maximize-paragraph-municipality.trycloudflare.com/";
 
 function Dashboard() {
