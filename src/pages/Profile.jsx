@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/style.css';
+import { useTheme } from "../context/ThemeContext";
 
 function Profile() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -186,6 +188,9 @@ function Profile() {
         <header className="dash-header no-print">
           <h1>My Profile ✨</h1>
           <div className="header-actions">
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             {isEditingMode && (
               <button 
                 className="btn-primary" 

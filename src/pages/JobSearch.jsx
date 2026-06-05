@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/style.css";
 import { DUMMY_JOBS } from "../data/dummyJobs";
+import { useTheme } from "../context/ThemeContext";
+import { useSavedJobs } from "../hooks/useSavedJobs";
 
 function JobSearch() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -39,6 +42,7 @@ function JobSearch() {
     }
     return { username: "Guest", email: "guest@email.com" };
   });
+  const { toggleSaveJob, isJobSaved } = useSavedJobs(userData.username);
 
   const getInitials = (name) => {
     if (!name) return "G";
@@ -135,8 +139,8 @@ function JobSearch() {
             <span>💼</span> Job Search
           </div>
           <div className="nested-menu">
-            <a href="#" className="nested-item active">Find Jobs</a>
-            <a href="#" className="nested-item">Saved Jobs</a>
+            <Link to="/search" className="nested-item active">Find Jobs</Link>
+            <Link to="/saved-jobs" className="nested-item">Saved Jobs</Link>
             <a href="#" className="nested-item">Applications</a>
           </div>
         </div>
@@ -165,7 +169,9 @@ function JobSearch() {
         <header className="dash-header">
           <h1>Find Your Dream Job ✨</h1>
           <div className="header-actions">
-            <button className="btn-action"><span>➕</span> Post a Job</button>
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
           </div>
         </header>
 
@@ -261,10 +267,14 @@ function JobSearch() {
                     </div>
                     <button
                       className="jc-save"
-                      onClick={(e) => e.stopPropagation()}
+                      style={{ color: isJobSaved(job.id) ? '#ff5e8e' : '#9ca3af' }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSaveJob(job.id);
+                      }}
                       aria-label="Save job"
                     >
-                      ♡
+                      {isJobSaved(job.id) ? '♥' : '♡'}
                     </button>
                   </div>
 

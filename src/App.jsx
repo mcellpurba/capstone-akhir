@@ -5,6 +5,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
 import JobSearch from "./pages/JobSearch"
+import SavedJobs from "./pages/SavedJobs"
 import DetailJob from "./pages/detailjob"
 import Profile from "./pages/Profile"
 import JobPrediction from "./pages/JobPrediction"
@@ -20,6 +21,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/search" element={<JobSearch />} />
+      <Route path="/saved-jobs" element={<SavedJobs />} />
       <Route path="/job/:id" element={<DetailJob />} />
       <Route path="/prediction" element={<JobPrediction />} />
       <Route path="/chatbot" element={<Chatbot />} />

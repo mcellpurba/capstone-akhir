@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/style.css";
+import { useTheme } from "../context/ThemeContext";
 
 const CHATBOT_URL = "https://chatbot-capstone.streamlit.app/";
 
 function Chatbot() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
 
@@ -99,6 +101,9 @@ function Chatbot() {
         <header className="dash-header">
           <h1>🤖 AI Career Chatbot</h1>
           <div className="header-actions">
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             <a
               href={CHATBOT_URL}
               target="_blank"

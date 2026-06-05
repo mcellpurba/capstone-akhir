@@ -14,6 +14,7 @@ import {
   Cell,
 } from "recharts";
 import "../styles/style.css";
+import { useTheme } from "../context/ThemeContext";
 
 const skillRadarData = [
   { subject: "React/JS", user: 80, industry: 90, fullMark: 100 },
@@ -40,6 +41,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   // CV Analyzer states
   const [showCvModal, setShowCvModal] = useState(false);
@@ -132,9 +134,9 @@ function Dashboard() {
       // Normalisasi — tangkap berbagai kemungkinan nama field dari Flask API
       let rawScore =
         data.match_rate ?? data.match_score ?? data.score ?? data.fit_score ??
-        data.matchScore ?? data.percentage ?? data.skor ?? 
+        data.matchScore ?? data.percentage ?? data.skor ??
         data["Match Score"] ?? data["Match_Score"] ?? data.MatchScore ?? null;
-      
+
       // Jika ternyata score ada di object dalam, misal data.result.score
       if (rawScore === null && data.result) {
         rawScore = data.result.match_rate ?? data.result.match_score ?? data.result.score ?? data.result.percentage ?? null;
@@ -147,9 +149,9 @@ function Dashboard() {
         score = isNaN(parsed) ? null : Math.round(parsed);
       }
 
-      const have  = data.matched ?? data.have  ?? data.dimiliki ?? data.skills_matched ?? [];
-      const gap   = data.gap     ?? data.skills_gap ?? data.missing ?? [];
-      const bonus = data.bonus   ?? data.bonus_skills ?? data.extra ?? [];
+      const have = data.matched ?? data.have ?? data.dimiliki ?? data.skills_matched ?? [];
+      const gap = data.gap ?? data.skills_gap ?? data.missing ?? [];
+      const bonus = data.bonus ?? data.bonus_skills ?? data.extra ?? [];
 
       const result = { score: isNaN(score) ? null : score, have, gap, bonus, raw: data };
       setCvResult(result);
@@ -195,7 +197,7 @@ function Dashboard() {
             <p>Free Plan</p>
           </div>
         </div>
-        
+
         <div className="dash-menu-group">
           <p className="menu-label">MAIN MENU</p>
           <Link to="/dashboard" className="menu-item active">
@@ -235,8 +237,8 @@ function Dashboard() {
         <header className="dash-header">
           <h1>Welcome, {userData.username.split(" ")[0]}</h1>
           <div className="header-actions">
-            <button className="btn-action">
-              <span>🤖</span> AI Career Assistant
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
             </button>
             <button className="btn-action" onClick={handleOpenCvModal}>
               <span>📥</span> Import CV
@@ -281,7 +283,7 @@ function Dashboard() {
                 <div style={{ display: 'flex', gap: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', padding: '4px', marginTop: '14px' }}>
                   {[
                     { key: 'upload', label: '🔍 Upload & Analisis' },
-                    { key: 'iframe', label: '💻 Buka CV Analyzer' }
+                    //{ key: 'iframe', label: '💻 Buka CV Analyzer' }
                   ].map(tab => (
                     <button key={tab.key} onClick={() => setCvModalTab(tab.key)} style={{
                       flex: 1, padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer',
@@ -389,7 +391,7 @@ function Dashboard() {
 
                       {/* Skill breakdown */}
                       {[
-                        { label: '✅ Sudah Kamu Miliki', items: cvResult.have,  color: '#10b981' },
+                        { label: '✅ Sudah Kamu Miliki', items: cvResult.have, color: '#10b981' },
                         { label: '⚠️ Gap — Perlu Dipelajari', items: cvResult.gap, color: '#f59e0b' },
                         { label: '🎁 Bonus Skill', items: cvResult.bonus, color: '#b14eff' },
                       ].filter(g => g.items && g.items.length > 0).map(group => (

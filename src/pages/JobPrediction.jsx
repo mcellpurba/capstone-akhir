@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/style.css";
+import { useTheme } from "../context/ThemeContext";
 
 function JobPrediction() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
 
@@ -85,8 +87,8 @@ function JobPrediction() {
         <header className="dash-header">
           <h1>Job Skill Prediction</h1>
           <div className="header-actions">
-            <button className="btn-action">
-              <span>🤖</span> AI Career Assistant
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
             </button>
           </div>
         </header>

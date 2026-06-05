@@ -1,8 +1,10 @@
 import React from "react";
 import gambar_home from "../assets/gambarkerja.jpg";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 function Home() {
+  const { theme, toggleTheme } = useTheme();
   return (
     <div className="home-wrapper">
 
@@ -17,7 +19,10 @@ function Home() {
           <a href="#">Tentang Kami</a>
         </div>
 
-        <div className="navbar-auth">
+        <div className="navbar-auth" style={{ alignItems: 'center' }}>
+          <button onClick={toggleTheme} className="theme-toggle-btn" style={{ marginRight: '10px' }} aria-label="Toggle theme">
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <Link to="/login">
             <button className="btn-primary" style={{ padding: "10px 35px" }}>Login</button>
           </Link>

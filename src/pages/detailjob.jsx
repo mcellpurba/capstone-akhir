@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/style.css";
+import { useTheme } from "../context/ThemeContext";
+import { useSavedJobs } from "../hooks/useSavedJobs";
 
 import JobDetailSidebar from "../components/DetailJob/JobDetailSidebar";
 import JobHeroCard from "../components/DetailJob/JobHeroCard";
@@ -11,7 +13,7 @@ import { DUMMY_JOBS } from "../data/dummyJobs";
 function DetailJob() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [saved, setSaved] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleBack = () => {
     navigate("/search");
@@ -29,6 +31,9 @@ function DetailJob() {
   });
 
   const job = DUMMY_JOBS.find((j) => j.id === parseInt(id));
+  const { isJobSaved, toggleSaveJob } = useSavedJobs(userData.username);
+  
+  const saved = job ? isJobSaved(job.id) : false;
 
   const getInitials = (name) => {
     if (!name) return "G";
@@ -70,9 +75,12 @@ function DetailJob() {
             <h1>Job Detail ✨</h1>
           </div>
           <div className="header-actions">
+            <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme" style={{ marginRight: '10px' }}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             <button
               className={`btn-save-toggle ${saved ? "saved" : ""}`}
-              onClick={() => setSaved(!saved)}
+              onClick={() => toggleSaveJob(job.id)}
             >
               {saved ? "♥ Saved" : "♡ Save Job"}
             </button>

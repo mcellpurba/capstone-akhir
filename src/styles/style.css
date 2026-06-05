@@ -1687,3 +1687,153 @@ input:focus {
     display: none !important;
   }
 }
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-main: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --white: #1e1e1e;
+}
+
+[data-theme="dark"] body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .widget-card,
+[data-theme="dark"] .card,
+[data-theme="dark"] .dash-sidebar,
+[data-theme="dark"] .job-card-dark,
+[data-theme="dark"] .js-dark-filters,
+[data-theme="dark"] .js-dark-search,
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .detail-hero-card,
+[data-theme="dark"] .detail-section,
+[data-theme="dark"] .detail-side-card,
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .prediction-result {
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .dash-main,
+[data-theme="dark"] .dash-container {
+  background-color: #121212 !important;
+}
+
+[data-theme="dark"] .text-main,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6,
+[data-theme="dark"] .menu-item span:not(.icon),
+[data-theme="dark"] .name,
+[data-theme="dark"] .detail-title,
+[data-theme="dark"] .jc-company h4,
+[data-theme="dark"] .results-header h3,
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .navbar-logo,
+[data-theme="dark"] .jc-salary,
+[data-theme="dark"] .filter-section label,
+[data-theme="dark"] .detail-section-title,
+[data-theme="dark"] .detail-stat-value,
+[data-theme="dark"] .overview-value {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-muted,
+[data-theme="dark"] p,
+[data-theme="dark"] .menu-label,
+[data-theme="dark"] .jc-desc,
+[data-theme="dark"] .detail-desc,
+[data-theme="dark"] .jc-posted,
+[data-theme="dark"] .filter-section h4,
+[data-theme="dark"] .range-labels span,
+[data-theme="dark"] .detail-company,
+[data-theme="dark"] .detail-stat-label,
+[data-theme="dark"] .detail-list li,
+[data-theme="dark"] .benefit-item,
+[data-theme="dark"] .overview-label {
+  color: #a0a0a0 !important;
+}
+
+[data-theme="dark"] .menu-item {
+  color: #e0e0e0;
+}
+[data-theme="dark"] .menu-item:hover,
+[data-theme="dark"] .menu-item.active {
+  background-color: #333333 !important;
+  color: #b14eff !important;
+}
+
+[data-theme="dark"] .dash-search,
+[data-theme="dark"] .icon-btn,
+[data-theme="dark"] .jc-logo,
+[data-theme="dark"] .detail-logo,
+[data-theme="dark"] input,
+[data-theme="dark"] .tag-dark {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .btn-action,
+[data-theme="dark"] .btn-outline-dark,
+[data-theme="dark"] .btn-back,
+[data-theme="dark"] .btn-save-toggle,
+[data-theme="dark"] .btn-outline {
+  background-color: #1e1e1e !important;
+  border-color: #444 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .btn-action:hover,
+[data-theme="dark"] .btn-outline-dark:hover,
+[data-theme="dark"] .btn-back:hover,
+[data-theme="dark"] .btn-save-toggle:hover {
+  background-color: #333333 !important;
+}
+
+[data-theme="dark"] .dash-user-profile {
+  border-top-color: #333 !important;
+}
+
+[data-theme="dark"] .js-divider-dark,
+[data-theme="dark"] .overview-item {
+  background-color: #333 !important;
+  border-bottom-color: #333 !important;
+}
+
+[data-theme="dark"] .auth-page-container {
+  background-color: #121212 !important;
+}
+
+[data-theme="dark"] .results-count {
+  background-color: #333 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .card-match-ribbon {
+  background-color: #2a2a2a !important;
+  border-color: #444 !important;
+}
+
+/* Toggle Switch Styles */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  color: inherit;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}

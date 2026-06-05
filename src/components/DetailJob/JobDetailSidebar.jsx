@@ -24,12 +24,6 @@ function JobDetailSidebar({ userData, getInitials }) {
         </div>
       </div>
 
-      <div className="dash-search">
-        <span>🔍</span>
-        <input type="text" placeholder="Search" />
-        <kbd>⌘K</kbd>
-      </div>
-
       <div className="dash-menu-group">
         <p className="menu-label">MAIN MENU</p>
         <Link to="/dashboard" className="menu-item">
@@ -43,9 +37,9 @@ function JobDetailSidebar({ userData, getInitials }) {
           <Link to="/search" className="nested-item active">
             Find Jobs
           </Link>
-          <a href="#" className="nested-item">
+          <Link to="/saved-jobs" className="nested-item">
             Saved Jobs
-          </a>
+          </Link>
           <a href="#" className="nested-item">
             Applications
           </a>
