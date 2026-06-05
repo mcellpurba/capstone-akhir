@@ -92,7 +92,7 @@ PORT=5000
 ```
 Start the backend server:
 ```bash
-npm run dev
+npm run start:dev
 ```
 *(Runs on `http://localhost:5000`)*
 
