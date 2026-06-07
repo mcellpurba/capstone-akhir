@@ -202,6 +202,13 @@ function Home() {
 
         </div>
       </section>
+
+      {/* Footer Section */}
+      <footer className="footer-section" style={{ textAlign: 'center', padding: '20px', marginTop: '40px', borderTop: '1px solid var(--border-color, #eaeaea)' }}>
+        <p style={{ color: 'var(--text-secondary, #666)', fontSize: '14px' }}>
+          &copy; {new Date().getFullYear()} MyJobTrend. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }
