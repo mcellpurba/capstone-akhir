@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Radar,
@@ -71,6 +71,30 @@ function Dashboard() {
     const saved = localStorage.getItem(userCvKey);
     return saved ? JSON.parse(saved) : { score: null, have: [], gap: [], bonus: [] };
   });
+
+  // Animated Score state
+  const [animatedScore, setAnimatedScore] = useState(0);
+
+  useEffect(() => {
+    if (matchScore.score !== null) {
+      let startTimestamp = null;
+      const duration = 1500; // 1.5 seconds for animation
+      const targetScore = matchScore.score;
+
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+        setAnimatedScore(Math.floor(easeOut * targetScore));
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          setAnimatedScore(targetScore);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+  }, [matchScore.score]);
 
   // Modal detail Skill Gap Summary
   const [showSkillDetail, setShowSkillDetail] = useState(false);
@@ -536,7 +560,7 @@ function Dashboard() {
             <div className="fit-stats">
               <div className="stat-circle" style={matchScore.score !== null ? { background: 'linear-gradient(135deg, rgba(177,78,255,0.25), rgba(74,144,226,0.25))', borderColor: 'rgba(177,78,255,0.5)' } : {}}>
                 <h2 style={{ color: matchScore.score !== null ? '#b14eff' : undefined }}>
-                  {matchScore.score !== null ? `${matchScore.score}%` : '—'}
+                  {matchScore.score !== null ? `${animatedScore}%` : '—'}
                 </h2>
                 <p>Match Score</p>
               </div>

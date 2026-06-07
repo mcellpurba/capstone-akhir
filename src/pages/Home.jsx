@@ -115,7 +115,7 @@ function Home() {
               <img src={risky_img} alt="Risky" style={{ height: '200px', objectFit: 'cover' }} />
             </div>
             <div className="about-card-content">
-              <h3 className="member-name">Risky</h3>
+              <h3 className="member-name">Rizky</h3>
               <p className="member-role">Data Science</p>
               <div className="member-socials">
                 <a href="https://www.linkedin.com/in/muhammadrizkyramadhan-sanken/" className="social-icon">
@@ -138,7 +138,7 @@ function Home() {
               <img src={haba_img} alt="Haba L" style={{ height: '200px', objectFit: 'cover' }} />
             </div>
             <div className="about-card-content">
-              <h3 className="member-name">Haba L</h3>
+              <h3 className="member-name">Haba</h3>
               <p className="member-role">Data Science</p>
               <div className="member-socials">
                 <a href="https://www.linkedin.com/in/haba-l-herlambang-banjarnahor-793524289/" className="social-icon">
