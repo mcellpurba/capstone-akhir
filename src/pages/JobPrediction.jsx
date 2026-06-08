@@ -152,7 +152,7 @@ function JobPrediction() {
             {theme === 'dark' ? (
               <iframe
                 key="dark"
-                src="https://predictskillcapstone-w88pdmefqtiiollyqchwz9.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme"
+                src="https://predictskillcapstone-dsbxskwl6jia5kbhkdray2.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme"
                 width="100%"
                 height="100%"
                 style={{
@@ -171,7 +171,7 @@ function JobPrediction() {
             ) : (
               <iframe
                 key="light"
-                src="https://predictskillcapstone-w88pdmefqtiiollyqchwz9.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,light_theme"
+                src="https://predictskillcapstone-nfz7s7cbkbkcz72rzkcgrx.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,light_theme"
                 width="100%"
                 height="100%"
                 style={{

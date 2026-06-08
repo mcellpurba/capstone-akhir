@@ -4,6 +4,8 @@ import "../styles/style.css";
 import { useTheme } from "../context/ThemeContext";
 
 const CHATBOT_URL = "https://chatbot-capstone.streamlit.app/";
+const CHATBOT_URL_DARK = "https://chatbotdark.streamlit.app/";
+const CHATBOT_URL_LIGHT = "https://chatbotlight.streamlit.app/";
 
 function Chatbot() {
   const navigate = useNavigate();
@@ -247,7 +249,7 @@ function Chatbot() {
             {theme === 'dark' ? (
               <iframe
                 key="dark"
-                src={`${CHATBOT_URL}?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme`}
+                src={`${CHATBOT_URL_DARK}?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme`}
                 width="100%"
                 height="100%"
                 style={{
@@ -266,7 +268,7 @@ function Chatbot() {
             ) : (
               <iframe
                 key="light"
-                src={`${CHATBOT_URL}?embed=true&embed_options=hide_toolbar,hide_padding,light_theme`}
+                src={`${CHATBOT_URL_LIGHT}?embed=true&embed_options=hide_toolbar,hide_padding,light_theme`}
                 width="100%"
                 height="100%"
                 style={{

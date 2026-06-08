@@ -141,7 +141,6 @@ function JobSearch() {
           <div className="nested-menu">
             <Link to="/search" className="nested-item active">Find Jobs</Link>
             <Link to="/saved-jobs" className="nested-item">Saved Jobs</Link>
-            <a href="#" className="nested-item">Applications</a>
           </div>
         </div>
 

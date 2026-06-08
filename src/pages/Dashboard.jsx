@@ -1037,7 +1037,7 @@ function Dashboard() {
             {theme === 'dark' ? (
               <iframe
                 key="dark"
-                src="https://dashboardcapstoneda.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme"
+                src="https://dashboardcapstoneeda-nxpuyz5bhznjwn3mvif62q.streamlit.app/?embed=true&embed_options=dark_theme"
                 width="100%"
                 height="100%"
                 style={{
@@ -1056,7 +1056,7 @@ function Dashboard() {
             ) : (
               <iframe
                 key="light"
-                src="https://dashboardcapstoneda.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,light_theme"
+                src="https://dashboardcapstoneeda-cb8udkjti3q3jeqhccdu34.streamlit.app/?embed=true&embed_options=light_theme"
                 width="100%"
                 height="100%"
                 style={{
