@@ -20,6 +20,7 @@ function Home() {
         
         <div className="navbar-links">
           <a href="#">Pelayanan</a>
+          <a href="#testimoni">Testimoni</a>
           <a href="#tentang-kami">Tentang Kami</a>
         </div>
 
@@ -54,6 +55,78 @@ function Home() {
           <img src={gambar_home} alt="Ilustrasi Profesional Bekerja" className="gambar_home" />
         </div>
       </main>
+
+      {/* Testimonials Section */}
+      <section className="testimonials-section" id="testimoni" style={{ padding: '80px 20px', backgroundColor: 'var(--bg-color)', position: 'relative', overflow: 'hidden' }}>
+        
+        {/* Background Decorative Elements */}
+        <div style={{ position: 'absolute', top: '10%', left: '5%', width: '150px', height: '150px', backgroundImage: 'radial-gradient(circle, #d1d5db 2px, transparent 2px)', backgroundSize: '20px 20px', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', bottom: '5%', right: '2%', width: '200px', height: '200px', backgroundImage: 'radial-gradient(circle, #d1d5db 2px, transparent 2px)', backgroundSize: '20px 20px', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', top: '20%', right: '15%', width: '15px', height: '15px', backgroundColor: '#6366f1', borderRadius: '50%', opacity: 0.8 }}></div>
+        <div style={{ position: 'absolute', bottom: '20%', left: '10%', width: '15px', height: '15px', backgroundColor: '#fbbf24', borderRadius: '50%', opacity: 0.8 }}></div>
+        <div style={{ position: 'absolute', top: '15%', left: '20%', width: '12px', height: '12px', backgroundColor: '#fbbf24', borderRadius: '50%', opacity: 0.6 }}></div>
+        <div style={{ position: 'absolute', top: '0', left: '-5%', width: '400px', height: '400px', background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%)', transform: 'rotate(-45deg)', borderRadius: '100px' }}></div>
+        
+        <div style={{ textAlign: 'center', marginBottom: '60px', position: 'relative', zIndex: 1 }}>
+          <h4 style={{ color: '#4b5563', fontSize: '14px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '10px' }}>Testimonials</h4>
+          <h2 style={{ fontSize: '36px', fontWeight: '800', color: 'var(--text-main)' }}>What People Say's About Us</h2>
+        </div>
+
+        <div className="testimonials-grid" style={{ display: 'flex', gap: '30px', justifyItems: 'center', justifyContent: 'center', flexWrap: 'wrap', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          
+          {/* Card 1 */}
+          <div className="testimonial-card" style={{ background: 'var(--white)', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.04)', flex: '1', minWidth: '300px', maxWidth: '360px', transition: 'transform 0.3s ease' }}>
+            <div className="stars" style={{ color: '#fbbf24', fontSize: '20px', marginBottom: '20px', letterSpacing: '2px' }}>
+              ★★★★★
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.7', marginBottom: '30px', minHeight: '80px' }}>
+              MyJobTrend membantu saya memahami skill yang paling dibutuhkan industri saat ini. Setelah mengikuti rekomendasi yang diberikan, saya lebih percaya diri melamar pekerjaan yang sesuai dengan kemampuan saya.
+            </p>
+            <div className="author" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Charles Byrum" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', fontWeight: '700', color: 'var(--text-main)' }}>Charles Byrum</h4>
+                <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: '500' }}>Data Scientist</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="testimonial-card" style={{ background: 'var(--white)', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.04)', flex: '1', minWidth: '300px', maxWidth: '360px', transition: 'transform 0.3s ease' }}>
+            <div className="stars" style={{ color: '#fbbf24', fontSize: '20px', marginBottom: '20px', letterSpacing: '2px' }}>
+              ★★★★★
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.7', marginBottom: '30px', minHeight: '80px' }}>
+              CV Analyzer memberikan insight yang sangat bermanfaat. Dalam hitungan detik saya bisa mengetahui kekuatan dan kekurangan CV saya sebelum melamar pekerjaan.
+            </p>
+            <div className="author" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="William Campisi" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', fontWeight: '700', color: 'var(--text-main)' }}>William Campisi</h4>
+                <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: '500' }}>HRD</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="testimonial-card" style={{ background: 'var(--white)', padding: '40px', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.04)', flex: '1', minWidth: '300px', maxWidth: '360px', transition: 'transform 0.3s ease' }}>
+            <div className="stars" style={{ color: '#fbbf24', fontSize: '20px', marginBottom: '20px', letterSpacing: '2px' }}>
+              ★★★★★
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '15px', lineHeight: '1.7', marginBottom: '30px', minHeight: '80px' }}>
+              Analisis tren lowongan kerja yang ditampilkan sangat informatif. Saya dapat melihat teknologi dan keterampilan yang sedang banyak dicari oleh perusahaan.
+            </p>
+            <div className="author" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Michael Miller" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', fontWeight: '700', color: 'var(--text-main)' }}>Michael Miller</h4>
+                <p style={{ margin: 0, fontSize: '13px', color: '#9ca3af', fontWeight: '500' }}>Senior Backend</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
       {/* About Us Section */}
       <section className="about-section" id="tentang-kami">

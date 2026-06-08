@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Radar,
@@ -16,7 +16,7 @@ import {
 import "../styles/style.css";
 import { useTheme } from "../context/ThemeContext";
 
-const skillRadarData = [
+const defaultRadarData = [
   { subject: "React/JS", user: 80, industry: 90, fullMark: 100 },
   { subject: "Python", user: 65, industry: 85, fullMark: 100 },
   { subject: "Deep Learning", user: 40, industry: 75, fullMark: 100 },
@@ -71,6 +71,53 @@ function Dashboard() {
     const saved = localStorage.getItem(userCvKey);
     return saved ? JSON.parse(saved) : { score: null, have: [], gap: [], bonus: [] };
   });
+
+  const dynamicRadarData = useMemo(() => {
+    if (matchScore.score === null || (!matchScore.have?.length && !matchScore.gap?.length)) {
+      return defaultRadarData;
+    }
+
+    const haveSkills = matchScore.have || [];
+    const gapSkills = matchScore.gap || [];
+    
+    // Ambil beberapa skill untuk radar, utamakan kombinasi dari matched dan gap
+    const takeHave = haveSkills.slice(0, 3);
+    const takeGap = gapSkills.slice(0, 3);
+    
+    let finalSkills = [...takeHave, ...takeGap];
+    if (finalSkills.length < 6) {
+      const allRemaining = [...haveSkills.slice(3), ...gapSkills.slice(3)];
+      finalSkills = [...finalSkills, ...allRemaining].slice(0, 6);
+    }
+    
+    // Fallback jika skill hasil analisis kurang dari 3 agar grafik radar tidak error bentuk
+    const fallbacks = ["Problem Solving", "Communication", "Teamwork"];
+    while (finalSkills.length < 3) {
+      const fb = fallbacks.find(f => !finalSkills.includes(f));
+      if (fb) finalSkills.push(fb);
+    }
+
+    return finalSkills.map((skill, index) => {
+      // Potong string yang terlalu panjang agar label grafik tidak menumpuk
+      const shortSubject = skill.length > 12 ? skill.substring(0, 12) + "..." : skill;
+      
+      // Pseudo-random statis berdasarkan index agar stabil di useMemo dan tidak memicu warning
+      const var1 = (index * 7) % 15;
+      const var2 = (index * 3) % 10;
+      const var3 = (index * 11) % 20;
+      const var4 = (index * 5) % 15;
+      
+      if (haveSkills.includes(skill)) {
+        // Skill Matched: skor user tinggi
+        return { subject: shortSubject, user: 80 + var1, industry: 80 + var2, fullMark: 100 };
+      } else if (gapSkills.includes(skill)) {
+        // Skill Gap: skor user rendah
+        return { subject: shortSubject, user: 25 + var3, industry: 80 + var4, fullMark: 100 };
+      }
+      
+      return { subject: shortSubject, user: 70, industry: 75, fullMark: 100 };
+    });
+  }, [matchScore]);
 
   // Animated Score state
   const [animatedScore, setAnimatedScore] = useState(0);
@@ -496,60 +543,73 @@ function Dashboard() {
               <h3>Skill Analysis (Radar)</h3>
               <span className="icon-btn">🎯</span>
             </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <RadarChart
-                  cx="50%"
-                  cy="50%"
-                  outerRadius="70%"
-                  data={skillRadarData}
-                >
-                  <PolarGrid stroke="#444" />
-                  <PolarAngleAxis
-                    dataKey="subject"
-                    tick={{ fill: "#a0a0a0", fontSize: 10 }}
-                  />
-                  <PolarRadiusAxis
-                    angle={30}
-                    domain={[0, 100]}
-                    tick={false}
-                    axisLine={false}
-                  />
-                  <Radar
-                    name="User Skill"
-                    dataKey="user"
-                    stroke="#b14eff"
-                    fill="#b14eff"
-                    fillOpacity={0.5}
-                  />
-                  <Radar
-                    name="Industry Avg"
-                    dataKey="industry"
-                    stroke="#4a90e2"
-                    fill="#4a90e2"
-                    fillOpacity={0.3}
-                  />
-                  <RechartsTooltip
-                    contentStyle={{
-                      backgroundColor: "#1a1b1e",
-                      borderColor: "#333",
-                      color: "#fff",
-                      borderRadius: "8px",
-                    }}
-                    itemStyle={{ color: "#fff" }}
-                    labelStyle={{ color: "#a0a0a0" }}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="chart-legend">
-              <span className="legend-item">
-                <span className="dot purple"></span>Your Skill
-              </span>
-              <span className="legend-item">
-                <span className="dot blue"></span>Industry Avg
-              </span>
-            </div>
+            {matchScore.score !== null ? (
+              <>
+                <div className="chart-container">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <RadarChart
+                      cx="50%"
+                      cy="50%"
+                      outerRadius="70%"
+                      data={dynamicRadarData}
+                    >
+                      <PolarGrid stroke="#444" />
+                      <PolarAngleAxis
+                        dataKey="subject"
+                        tick={{ fill: "#a0a0a0", fontSize: 10 }}
+                      />
+                      <PolarRadiusAxis
+                        angle={30}
+                        domain={[0, 100]}
+                        tick={false}
+                        axisLine={false}
+                      />
+                      <Radar
+                        name="User Skill"
+                        dataKey="user"
+                        stroke="#b14eff"
+                        fill="#b14eff"
+                        fillOpacity={0.5}
+                      />
+                      <Radar
+                        name="Industry Avg"
+                        dataKey="industry"
+                        stroke="#4a90e2"
+                        fill="#4a90e2"
+                        fillOpacity={0.3}
+                      />
+                      <RechartsTooltip
+                        contentStyle={{
+                          backgroundColor: "#1a1b1e",
+                          borderColor: "#333",
+                          color: "#fff",
+                          borderRadius: "8px",
+                        }}
+                        itemStyle={{ color: "#fff" }}
+                        labelStyle={{ color: "#a0a0a0" }}
+                      />
+                    </RadarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="chart-legend">
+                  <span className="legend-item">
+                    <span className="dot purple"></span>Your Skill
+                  </span>
+                  <span className="legend-item">
+                    <span className="dot blue"></span>Industry Avg
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '240px', gap: '8px', cursor: 'pointer' }}
+                onClick={handleOpenCvModal}
+              >
+                <span style={{ fontSize: '36px', opacity: 0.8 }}>🎯</span>
+                <p style={{ color: '#a0a0a0', fontSize: '13px', margin: 0, textAlign: 'center' }}>Belum ada data analisis CV</p>
+                <p style={{ color: '#6b7280', fontSize: '11px', margin: 0 }}>📥 Klik untuk upload CV</p>
+              </div>
+            )}
           </div>
 
           <div className="widget-card" style={{ cursor: 'pointer' }} onClick={handleOpenCvModal}>
@@ -560,7 +620,7 @@ function Dashboard() {
             <div className="fit-stats">
               <div className="stat-circle" style={matchScore.score !== null ? { background: 'linear-gradient(135deg, rgba(177,78,255,0.25), rgba(74,144,226,0.25))', borderColor: 'rgba(177,78,255,0.5)' } : {}}>
                 <h2 style={{ color: matchScore.score !== null ? '#b14eff' : undefined }}>
-                  {matchScore.score !== null ? `${animatedScore}%` : '—'}
+                  {matchScore.score !== null ? `${animatedScore}%` : '0%'}
                 </h2>
                 <p>Match Score</p>
               </div>
