@@ -1946,3 +1946,166 @@ input:focus {
 [data-theme="dark"] .about-section {
   background-color: #121212;
 }
+
+/* =========================================
+   7. FOOTER SECTION
+   ========================================= */
+.main-footer {
+  background-color: #111a28; /* Blends with the dark theme and about section */
+  color: #e2e8f0;
+  padding: 80px 80px 20px 80px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.footer-col-1 h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.footer-logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #1e293b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #334155;
+  color: #fff;
+}
+
+.footer-desc {
+  color: #94a3b8;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  max-width: 340px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.footer-social-icon:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+.footer-col h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-col ul li a {
+  color: #94a3b8;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #60a5fa;
+}
+
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding-top: 25px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+  .main-footer {
+    padding: 60px 20px 20px 20px;
+  }
+}
+
+/* Fix for Why Us section in dark mode */
+[data-theme="dark"] .why-card {
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+}
+
+[data-theme="dark"] .why-card h3 {
+  color: var(--primary-color) !important;
+}
+
+[data-theme="dark"] .why-card p {
+  color: #a0a0a0 !important;
+}
+
+[data-theme="dark"] .why-card .icon-wrapper {
+  background-color: rgba(0, 98, 255, 0.15) !important;
+}
+
+/* Fix for Performa section in dark mode */
+[data-theme="dark"] .perf-card {
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+}
+
+[data-theme="dark"] .perf-card h3 {
+  color: var(--primary-color) !important;
+}
+
+/* Dark mode fix for Register Page */
+[data-theme="dark"] .register-page {
+  background-image: none !important;
+  background-color: #121212 !important;
+}
+
+[data-theme="dark"] .register-page .auth-logo-top {
+  color: #ffffff !important;
+}

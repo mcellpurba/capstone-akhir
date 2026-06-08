@@ -149,23 +149,45 @@ function JobPrediction() {
             )}
 
             {/* Iframe utama */}
-            <iframe
-              src="https://predictskillcapstone-w88pdmefqtiiollyqchwz9.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding"
-              width="100%"
-              height="100%"
-              style={{
-                border: 'none',
-                display: 'block',
-                position: 'relative',
-                zIndex: 1,
-                opacity: iframeLoaded ? 1 : 0,
-                transition: 'opacity 0.4s ease',
-              }}
-              title="Streamlit Skill Prediction"
-              allow="camera; microphone; fullscreen"
-              onLoad={() => setIframeLoaded(true)}
-              onError={() => setIframeError(true)}
-            />
+            {theme === 'dark' ? (
+              <iframe
+                key="dark"
+                src="https://predictskillcapstone-w88pdmefqtiiollyqchwz9.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme"
+                width="100%"
+                height="100%"
+                style={{
+                  border: 'none',
+                  display: 'block',
+                  position: 'relative',
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: 'opacity 0.4s ease',
+                }}
+                title="Streamlit Skill Prediction"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            ) : (
+              <iframe
+                key="light"
+                src="https://predictskillcapstone-w88pdmefqtiiollyqchwz9.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,light_theme"
+                width="100%"
+                height="100%"
+                style={{
+                  border: 'none',
+                  display: 'block',
+                  position: 'relative',
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: 'opacity 0.4s ease',
+                }}
+                title="Streamlit Skill Prediction"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            )}
           </div>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>

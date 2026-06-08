@@ -244,23 +244,45 @@ function Chatbot() {
             )}
 
             {/* Iframe utama */}
-            <iframe
-              src={`${CHATBOT_URL}?embed=true&embed_options=hide_toolbar,hide_padding`}
-              width="100%"
-              height="100%"
-              style={{
-                border: "none",
-                display: "block",
-                position: "relative",
-                zIndex: 1,
-                opacity: iframeLoaded ? 1 : 0,
-                transition: "opacity 0.4s ease",
-              }}
-              title="AI Career Chatbot"
-              allow="camera; microphone; fullscreen"
-              onLoad={() => setIframeLoaded(true)}
-              onError={() => setIframeError(true)}
-            />
+            {theme === 'dark' ? (
+              <iframe
+                key="dark"
+                src={`${CHATBOT_URL}?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme`}
+                width="100%"
+                height="100%"
+                style={{
+                  border: "none",
+                  display: "block",
+                  position: "relative",
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: "opacity 0.4s ease",
+                }}
+                title="AI Career Chatbot"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            ) : (
+              <iframe
+                key="light"
+                src={`${CHATBOT_URL}?embed=true&embed_options=hide_toolbar,hide_padding,light_theme`}
+                width="100%"
+                height="100%"
+                style={{
+                  border: "none",
+                  display: "block",
+                  position: "relative",
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: "opacity 0.4s ease",
+                }}
+                title="AI Career Chatbot"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            )}
           </div>
         </div>
       </main>

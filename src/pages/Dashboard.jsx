@@ -1034,23 +1034,45 @@ function Dashboard() {
             )}
 
             {/* Iframe utama — selalu di atas layer lain (zIndex: 1) */}
-            <iframe
-              src="https://dashboardcapstoneda.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding"
-              width="100%"
-              height="100%"
-              style={{
-                border: 'none',
-                display: 'block',
-                position: 'relative',
-                zIndex: 1,
-                opacity: iframeLoaded ? 1 : 0,
-                transition: 'opacity 0.4s ease',
-              }}
-              title="Streamlit Job Skill Dashboard"
-              allow="camera; microphone; fullscreen"
-              onLoad={() => setIframeLoaded(true)}
-              onError={() => setIframeError(true)}
-            />
+            {theme === 'dark' ? (
+              <iframe
+                key="dark"
+                src="https://dashboardcapstoneda.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,dark_theme"
+                width="100%"
+                height="100%"
+                style={{
+                  border: 'none',
+                  display: 'block',
+                  position: 'relative',
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: 'opacity 0.4s ease',
+                }}
+                title="Streamlit Job Skill Dashboard"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            ) : (
+              <iframe
+                key="light"
+                src="https://dashboardcapstoneda.streamlit.app/?embed=true&embed_options=hide_toolbar,hide_padding,light_theme"
+                width="100%"
+                height="100%"
+                style={{
+                  border: 'none',
+                  display: 'block',
+                  position: 'relative',
+                  zIndex: 1,
+                  opacity: iframeLoaded ? 1 : 0,
+                  transition: 'opacity 0.4s ease',
+                }}
+                title="Streamlit Job Skill Dashboard"
+                allow="camera; microphone; fullscreen"
+                onLoad={() => setIframeLoaded(true)}
+                onError={() => setIframeError(true)}
+              />
+            )}
           </div>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
